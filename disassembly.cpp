@@ -30,12 +30,12 @@ string disassemble( string hex ) {
     //
     // YOUR CODE GOES HERE!!
 
-    const int RANGE = 8;
-    int t_regs[RANGE] = {8, 9, 10, 11, 12, 13, 14, 15};     // $t0-$t9 decimal values
-    int s_regs[RANGE] = {16, 17, 18, 19, 20, 21, 22, 23};    // $s0-$s9 decimal values
+    const int RANGE = 16;
+    string regs[RANGE] = {"01000", "01001", "01010", "01011", "01100", "01101", "01110", "01111", "10000", "10001", "10010", "10011", "10100", "10101", "10110", "10111"};     // $t0-$t9 and $s0-$s7 5-bit binary values
+    // int s_regs[RANGE] = {16, 17, 18, 19, 20, 21, 22, 23};    // $s0-$s9 decimal values
 
     const int SIZE = 5;
-    int opcodes[SIZE] = {8, 9, 12, 13, 10};                 // addi, addiu, andi, ori, slti opcodes in decimal
+    string opcodes[SIZE] = {"001000", "001001", "001100", "001101", "001010"};                 // addi, addiu, andi, ori, slti opcodes in 6-bit binary
 
     const int VALS = 16;
     string binVals[VALS] = {"0000", "0001", "0010", "0011", "0100", "0101", "0110", "0111", "1000", "1001", "1010", "1011", "1100", "1101", "1110", "1111"};
@@ -97,11 +97,107 @@ string disassemble( string hex ) {
 
 
     string opcode = binary.substr(0, 6);
-    string rs = binary.substr(6, 11);
-    string rt = binary.substr(11, 16);
-    string imm = binary.substr(16, 31);
- 
-    return binary;  // remove stub and replace it with correct variable
+    string rs = binary.substr(6, 5);
+    string rt = binary.substr(11, 5);
+    string imm = binary.substr(16, 16);
+
+    std::cout << opcode << " | " << rs << " | " << rt << " | " << imm << std::endl;
+
+    string result = ""; // want opcode rt, rs, imm
+
+    if (opcode == opcodes[0]) {
+        result += "addi ";
+    } else if (opcode == opcodes[1]) {
+        result += "addiu ";
+    } else if (opcode == opcodes[1]) {
+        result += "andi ";
+    } else if (opcode == opcodes[1]) {
+        result += "ori ";
+    } else {
+        result += "slti ";
+    }
+
+    if (rt == regs[0]) {
+        result += "$t0, ";
+    } else if (rt == regs[1]) {
+        result += "$t1, ";
+    } else if (rt == regs[2]) {
+        result += "$t2, ";
+    } else if (rt == regs[3]) {
+        result += "$t3, ";
+    } else if (rt == regs[4]) {
+        result += "$t4, ";
+    } else if (rt == regs[5]) {
+        result += "$t5, ";
+    } else if (rt == regs[6]) {
+        result += "$t6, ";
+    } else if (rt == regs[7]) {
+        result += "$t7, ";
+    } else if (rt == regs[8]) {
+        result += "$s0, ";
+    } else if (rt == regs[9]) {
+        result += "$s1, ";
+    } else if (rt == regs[10]) {
+        result += "$s2, ";
+    } else if (rt == regs[11]) {
+        result += "$s3, ";
+    } else if (rt == regs[12]) {
+        result += "$s4, ";
+    } else if (rt == regs[13]) {
+        result += "$s5, ";
+    } else if (rt == regs[14]) {
+        result += "$s6, ";
+    } else {
+        result += "$s7, ";
+    }
+
+    if (rs == regs[0]) {
+        result += "$t0, ";
+    } else if (rs == regs[1]) {
+        result += "$t1, ";
+    } else if (rs == regs[2]) {
+        result += "$t2, ";
+    } else if (rs == regs[3]) {
+        result += "$t3, ";
+    } else if (rs == regs[4]) {
+        result += "$t4, ";
+    } else if (rs == regs[5]) {
+        result += "$t5, ";
+    } else if (rs == regs[6]) {
+        result += "$t6, ";
+    } else if (rs == regs[7]) {
+        result += "$t7, ";
+    } else if (rs == regs[8]) {
+        result += "$s0, ";
+    } else if (rs == regs[9]) {
+        result += "$s1, ";
+    } else if (rs == regs[10]) {
+        result += "$s2, ";
+    } else if (rs == regs[11]) {
+        result += "$s3, ";
+    } else if (rs == regs[12]) {
+        result += "$s4, ";
+    } else if (rs == regs[13]) {
+        result += "$s5, ";
+    } else if (rs == regs[14]) {
+        result += "$s6, ";
+    } else {
+        result += "$s7, ";
+    }
+
+    int immediate;
+
+    if (imm[0] == '1') {
+        immediate = stoi(imm, nullptr, 2);
+        immediate -= (1 << 16);
+    } else {
+        immediate = stoi(imm, nullptr, 2);
+    }
+
+    imm = to_string(immediate);
+    result += imm;
+
+    return result;  // remove stub and replace it with correct variable
 }
 
 int main() {
