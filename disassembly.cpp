@@ -106,9 +106,9 @@ string disassemble( string hex ) {
         result += "addi ";
     } else if (opcode == opcodes[1]) {
         result += "addiu ";
-    } else if (opcode == opcodes[1]) {
+    } else if (opcode == opcodes[2]) {
         result += "andi ";
-    } else if (opcode == opcodes[1]) {
+    } else if (opcode == opcodes[3]) {
         result += "ori ";
     } else {
         result += "slti ";
