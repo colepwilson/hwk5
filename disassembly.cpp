@@ -95,13 +95,10 @@ string disassemble( string hex ) {
 
     }
 
-
     string opcode = binary.substr(0, 6);
     string rs = binary.substr(6, 5);
     string rt = binary.substr(11, 5);
     string imm = binary.substr(16, 16);
-
-    std::cout << opcode << " | " << rs << " | " << rt << " | " << imm << std::endl;
 
     string result = ""; // want opcode rt, rs, imm
 
